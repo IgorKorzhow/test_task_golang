@@ -3,5 +3,6 @@ CREATE TABLE currency_courses_history (
     currency_type VARCHAR(3) NOT NULL,
     currency_scale int NOT NULL,
     currency_name VARCHAR(50) NOT NULL,
+    currency_official_rate DECIMAL(13,2) NOT NULL,
     on_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

@@ -80,6 +80,7 @@ func convertRowsToModel(rows *sql.Rows) (*types.CurrencyCourse, error) {
 		&currencyCourse.CurrencyType,
 		&currencyCourse.CurrencyScale,
 		&currencyCourse.CurrencyName,
+		&currencyCourse.CurrencyOfficialRate,
 		&currencyCourse.OnDate,
 	); err != nil {
 		return nil, err

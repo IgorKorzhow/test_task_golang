@@ -16,6 +16,8 @@ type Config struct {
 	DBUser   string `mapstructure:"DB_USER"`
 	DBPass   string `mapstructure:"DB_PASSWORD"`
 	DBNAME   string `mapstructure:"DB_NAME"`
+
+	NBRBServiceUrl string `mapstructure:"NBRB_SERVICE_URL"`
 }
 
 func LoadConfig() (config Config, err error) {

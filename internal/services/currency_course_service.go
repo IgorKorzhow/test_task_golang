@@ -1,6 +1,7 @@
 package services
 
 import (
+	"test_task_golang/internal/external_services"
 	"test_task_golang/internal/repositories"
 	"test_task_golang/internal/types"
 	"time"
@@ -22,6 +23,7 @@ func (cs *CurrencyCourseService) GetCurrenciesForDate(date time.Time) ([]*types.
 	return cs.currencyRepository.GetCurrenciesForDate(date)
 }
 
-func (cs *CurrencyCourseService) SyncApiCurrencyWithLocal() {
+func (cs *CurrencyCourseService) SyncApiCurrencyWithLocal(nbrbService *external_services.NbrbService, periodicity int) {
+	currencyCourses := nbrbService.GetCurrencyCoursesForPeriodicity(periodicity)
 
 }
