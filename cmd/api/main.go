@@ -46,6 +46,8 @@ func main() {
 
 	// Routes
 	r.GET("/currency_courses", currencyCourseController.GetCurrencies)
+	r.GET("/ping", controllers.Ping)
+
 	// Run server
 	serverUrl := fmt.Sprintf("%s:%s", config.AppHost, config.AppPort)
 	if err := r.Run(serverUrl); err != nil {

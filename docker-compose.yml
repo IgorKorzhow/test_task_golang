@@ -1,0 +1,40 @@
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: ./docker/api/Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - application
+    depends_on:
+      mysql:
+        condition: service_started
+  crone:
+    build:
+      context: ./
+      dockerfile: ./docker/api/Dockerfile
+    networks:
+      - application
+    depends_on:
+      mysql:
+        condition: service_started
+  mysql:
+      build:
+        context: ./docker/mysql
+        args:
+          - MYSQL_DATABASE=test_task_golang
+          - MYSQL_USER=user
+          - MYSQL_PASSWORD=ivalin60
+          - MYSQL_ROOT_PASSWORD=secret
+      container_name: mysql
+      networks:
+        - application
+      volumes:
+        - ./docker/mysql/data:/var/lib/mysql
+      ports:
+        - "3366:3306"
+
+networks:
+  application:
+    driver: bridge
