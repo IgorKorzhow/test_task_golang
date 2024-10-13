@@ -36,12 +36,12 @@ func (ns *NbrbService) sendRequest(url string) []byte {
 	return responseData
 }
 
-func (ns *NbrbService) GetCurrencyCoursesForPeriodicity(periodicity int) []types.CurrencyCourse {
+func (ns *NbrbService) GetCurrencyCoursesForPeriodicity(periodicity int) []*types.CurrencyCourse {
 	requestUrl := fmt.Sprintf("/exrates/rates?periodicity=%d", periodicity)
 
 	responseJsonBytes := ns.sendRequest(requestUrl)
 
-	var currencyCourses []types.CurrencyCourse
+	var currencyCourses []*types.CurrencyCourse
 	err := json.Unmarshal(responseJsonBytes, &currencyCourses)
 	if err != nil {
 		log.Fatal("Happen exception while converting json into currency courses:", err)

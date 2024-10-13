@@ -23,7 +23,8 @@ func (cs *CurrencyCourseService) GetCurrenciesForDate(date time.Time) ([]*types.
 	return cs.currencyRepository.GetCurrenciesForDate(date)
 }
 
-func (cs *CurrencyCourseService) SyncApiCurrencyWithLocal(nbrbService *external_services.NbrbService, periodicity int) {
+func (cs *CurrencyCourseService) SyncApiCurrencyWithLocal(nbrbService *external_services.NbrbService, periodicity int) (int64, error) {
 	currencyCourses := nbrbService.GetCurrencyCoursesForPeriodicity(periodicity)
 
+	return cs.currencyRepository.InsertCurrencyCourses(currencyCourses)
 }

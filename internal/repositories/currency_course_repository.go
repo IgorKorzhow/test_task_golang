@@ -72,6 +72,39 @@ func (cr *CurrencyCourseRepository) GetCurrenciesForDate(date time.Time) ([]*typ
 	return currencyCourses, nil
 }
 
+func (cr *CurrencyCourseRepository) InsertCurrencyCourses(currencyCourses []*types.CurrencyCourse) (int64, error) {
+	sqlStr := "INSERT INTO currency_courses_history(currency_type, currency_scale, currency_name, currency_official_rate, on_date) VALUES "
+
+	var vals []interface{}
+	for _, currencyCourse := range currencyCourses {
+		sqlStr += "(?, ?, ?, ?, ?),"
+		vals = append(
+			vals,
+			currencyCourse.CurrencyType,
+			currencyCourse.CurrencyScale,
+			currencyCourse.CurrencyName,
+			currencyCourse.CurrencyOfficialRate,
+			currencyCourse.OnDate,
+		)
+	}
+
+	sqlStr = sqlStr[0 : len(sqlStr)-1]
+
+	stmt, err := cr.DBConnection.Prepare(sqlStr)
+
+	if err != nil {
+		log.Fatal("Happened exception white preparing sql request ", err)
+	}
+
+	result, err := stmt.Exec(vals...)
+
+	if err != nil {
+		log.Fatal("Happened exception white executing sql request ", err)
+	}
+
+	return result.RowsAffected()
+}
+
 func convertRowsToModel(rows *sql.Rows) (*types.CurrencyCourse, error) {
 	var currencyCourse types.CurrencyCourse
 

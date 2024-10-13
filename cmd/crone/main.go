@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/robfig/cron/v3"
 	"log"
 	"test_task_golang/configs"
@@ -45,13 +46,12 @@ func main() {
 	//Crone jobs
 	saveCurrenciesFormAPIInLocalDBJob := crone.NewSaveCurrenciesFormAPIInLocalDBJob(currencyCourseService, nbrbService)
 
-	saveCurrenciesFormAPIInLocalDBJob.Run()
 	// Added tasks
-	//_, err = c.AddFunc("* * * * *", saveCurrenciesFormAPIInLocalDBJob.Run)
-	//if err != nil {
-	//	fmt.Println("Error adding cron job:", err)
-	//	return
-	//}
+	_, err = c.AddFunc("@daily", saveCurrenciesFormAPIInLocalDBJob.Run)
+	if err != nil {
+		fmt.Println("Error adding cron job:", err)
+		return
+	}
 
 	// Run scheduler
 	c.Start()

@@ -1,6 +1,8 @@
 package crone
 
 import (
+	"fmt"
+	"log"
 	"test_task_golang/internal/external_services"
 	"test_task_golang/internal/services"
 )
@@ -15,5 +17,11 @@ func NewSaveCurrenciesFormAPIInLocalDBJob(cs *services.CurrencyCourseService, ns
 }
 
 func (job *SaveCurrenciesFormAPIInLocalDBJob) Run() {
-	job.currencyService.SyncApiCurrencyWithLocal(job.nbrbService, 1)
+	countRows, err := job.currencyService.SyncApiCurrencyWithLocal(job.nbrbService, 1)
+
+	if err != nil {
+		log.Fatal("Error syncing currencies form api with database:", err)
+	}
+
+	fmt.Println("In history was added rows:", countRows)
 }
