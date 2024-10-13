@@ -1,0 +1,55 @@
+basePath: /api/v1
+definitions:
+  types.CurrencyCourse:
+    properties:
+      currencyName:
+        type: string
+      currencyOfficialRate:
+        type: number
+      currencyScale:
+        type: integer
+      currencyType:
+        type: string
+      id:
+        type: integer
+      onDate:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: Currency courses api
+  version: "1.0"
+paths:
+  /currency_courses:
+    get:
+      description: Retrieves a list of currency courses. An optional query parameter
+        'date' can be provided in the format 'dd.mm.yy' to retrieve courses for a
+        specific date.
+      parameters:
+      - description: Date in format dd.mm.yy
+        in: query
+        name: date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of currency courses
+          schema:
+            items:
+              $ref: '#/definitions/types.CurrencyCourse'
+            type: array
+        "400":
+          description: Invalid date format
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get Currency courses
+schemes:
+- http
+swagger: "2.0"

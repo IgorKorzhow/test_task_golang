@@ -8,6 +8,7 @@ RUN go mod download
 
 RUN go get -u -v github.com/golang-migrate/migrate/v4/cmd/migrate
 RUN go get -u -v github.com/go-sql-driver/mysql
+RUN go install github.com/swaggo/swag/cmd/swag@latest
 
 COPY . .
 

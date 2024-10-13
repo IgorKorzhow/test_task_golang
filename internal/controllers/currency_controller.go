@@ -16,6 +16,14 @@ func NewCurrencyController(service *services.CurrencyCourseService) *CurrencyCou
 	return &CurrencyCourseController{service}
 }
 
+// @Summary		Get Currency courses
+// @Description	Retrieves a list of currency courses. An optional query parameter 'date' can be provided in the format 'dd.mm.yy' to retrieve courses for a specific date.
+// @Produce		json
+// @Param			date	query		string					false	"Date in format dd.mm.yy"
+// @Success		200		{array}		types.CurrencyCourse	"List of currency courses"
+// @Failure		400		{object}	map[string]interface{}	"Invalid date format"
+// @Failure		500		{object}	map[string]interface{}	"Internal server error"
+// @Router			/currency_courses [get]
 func (cc *CurrencyCourseController) GetCurrencies(c *gin.Context) {
 	dateStr := c.Query("date")
 

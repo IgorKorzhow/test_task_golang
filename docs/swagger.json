@@ -1,0 +1,81 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "title": "Currency courses api",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/api/v1",
+    "paths": {
+        "/currency_courses": {
+            "get": {
+                "description": "Retrieves a list of currency courses. An optional query parameter 'date' can be provided in the format 'dd.mm.yy' to retrieve courses for a specific date.",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get Currency courses",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Date in format dd.mm.yy",
+                        "name": "date",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of currency courses",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/types.CurrencyCourse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid date format",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "types.CurrencyCourse": {
+            "type": "object",
+            "properties": {
+                "currencyName": {
+                    "type": "string"
+                },
+                "currencyOfficialRate": {
+                    "type": "number"
+                },
+                "currencyScale": {
+                    "type": "integer"
+                },
+                "currencyType": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "onDate": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
